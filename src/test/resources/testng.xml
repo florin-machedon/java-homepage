@@ -1,0 +1,45 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1">
+	<test name="FirstTest - Chrome">
+		<parameter name="browser" value="chrome" />
+		<classes>
+
+			<!-- Include Methods first -->
+			<class name="nl.funda.uitests.SearchAmsterdam">
+				<methods>
+					<include name="searchAmsterdam" />
+				</methods>
+			</class>
+
+			<!-- Exclude Methods second 
+			<class name="nl.funda.uitests.SearchAmsterdam">
+				<methods>
+					<exclude name="searchAmsterdamxxx" />
+				</methods>
+			</class>
+-->
+		</classes>
+	</test>
+
+	<test name="FirstTest - Firefox">
+		<parameter name="browser" value="firefox" />
+		<classes>
+
+			<!-- Include Methods first -->
+			<class name="nl.funda.uitests.SearchAmsterdam">
+				<methods>
+					<include name="searchAmsterdam" />
+				</methods>
+			</class>
+
+			<!-- Exclude Methods second 
+			<class name="nl.funda.uitests.SearchAmsterdam">
+				<methods>
+					<exclude name="searchAmsterdamxxx" />
+				</methods>
+			</class>
+-->
+		</classes>
+	</test>
+</suite>
