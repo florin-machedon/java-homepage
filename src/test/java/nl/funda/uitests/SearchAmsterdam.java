@@ -28,7 +28,7 @@ public class SearchAmsterdam extends BaseTest {
 		String fromPrice = testData.get("fromPrice");
 		String toPrice = testData.get("toPrice");
 
-		String resultsText = "*results"; //FIX THIS
+		String resultsText = "*result*"; //FIX THIS
 
 		SearchPage searchPage = new SearchPage(driver);
 		ResultsPage resultsPage = new ResultsPage(driver);

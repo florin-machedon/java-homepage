@@ -1,6 +1,7 @@
 package nl.funda.uitests.pages;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -27,8 +28,10 @@ public class SearchPage extends BasePageObject<SearchPage> {
 	private By europeButton = By.cssSelector(".search-block__navigation-item[href$=\"/europe/\"]");
 
 	private By filterLocationTextbox = By.cssSelector("input#autocomplete-input.autocomplete-input");
-	// private By autoCompleteFirstOption = By.cssSelector(".autocomplete-list-outer #autocomplete-list-option0");
-	// private By autoCompleteFirstOption = By.cssSelector("#autocomplete-list .is-match");
+	// private By autoCompleteFirstOption = By.cssSelector(".autocomplete-list-outer
+	// #autocomplete-list-option0");
+	// private By autoCompleteFirstOption = By.cssSelector("#autocomplete-list
+	// .is-match");
 	private By autoCompleteFirstOption = By.cssSelector("#autocomplete-list-option0 > span:nth-child(1)");
 
 	private By autoCompleteFullList = By.cssSelector("#autocomplete-list");
@@ -105,8 +108,6 @@ public class SearchPage extends BasePageObject<SearchPage> {
 
 		waitForVisibilityOf(filterLocationTextbox, 10);
 		typeCSVValueInTextbox(filterLocation, filterLocationTextbox);
-		driver.findElement(filterLocationTextbox).sendKeys(Keys.DOWN);
-		driver.findElement(filterLocationTextbox).sendKeys(Keys.RETURN);
 
 		waitForVisibilityOf(filterDistanceDropdownlist, 10);
 		selectByVisibleTextFromDropdown(filterDistance, filterDistanceDropdownlist);
@@ -117,10 +118,26 @@ public class SearchPage extends BasePageObject<SearchPage> {
 		waitForVisibilityOf(toPriceDropdownlist, 10);
 		selectByValueFromDropdown(toPrice, toPriceDropdownlist);
 
-		waitForVisibilityOf(autoCompleteFirstOption, 10);
-		click(autoCompleteFirstOption);
-		
-		waitForVisibilityOf(searchButton, 10);
+		driver.findElement(filterLocationTextbox).sendKeys(Keys.SPACE);
+//		waitForVisibilityOf(autoCompleteFullList, 10);
+
+		try {
+			WebElement autoOptions = driver.findElement(autoCompleteFirstOption);
+			wait.until(ExpectedConditions.visibilityOf(autoOptions));
+
+			List<WebElement> optionsToSelect = autoOptions.findElements(By.tagName("id"));
+			for (WebElement option : optionsToSelect) {
+				if (option.getText().equals(filterLocation)) {
+					System.out.println("Trying to select: " + filterLocation);
+					option.click();
+					break;
+				}
+			}
+		} catch (NoSuchElementException e) {
+			System.out.println(e.getStackTrace());
+		} catch (Exception e) {
+			System.out.println(e.getStackTrace());
+		}
 	}
 
 	// Click 'Search' button
