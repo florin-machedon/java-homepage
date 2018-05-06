@@ -2,18 +2,15 @@ package nl.funda.uitests;
 
 import java.util.Map;
 
-import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.relevantcodes.extentreports.LogStatus;
-import com.relevantcodes.extentreports.model.ScreenCapture;
 
 import nl.funda.uitests.base.BaseTest;
 import nl.funda.uitests.base.CsvDataProvider;
 import nl.funda.uitests.pages.ResultsPage;
 import nl.funda.uitests.pages.SearchPage;
-import nl.funda.uitests.pages.UserAccountPage;
 
 public class SearchAmsterdam extends BaseTest {
 
@@ -28,7 +25,7 @@ public class SearchAmsterdam extends BaseTest {
 		String fromPrice = testData.get("fromPrice");
 		String toPrice = testData.get("toPrice");
 
-		String resultsText = "*result*"; //FIX THIS
+		String resultsText = "resultaten";
 
 		SearchPage searchPage = new SearchPage(driver);
 		ResultsPage resultsPage = new ResultsPage(driver);
@@ -44,7 +41,22 @@ public class SearchAmsterdam extends BaseTest {
 		Assert.assertTrue(checkResults.contains(resultsText),
 				"This page did not returned any results: " + resultsText + "\nActual: " + "" + checkResults + ".");
 
-		captureScreenshot(driver, "ForRentSearchResults");
+		captureScreenshot(driver, "005-ForRentSearchResults");
+		
+		resultsPage.tickNoRentalFeeRadioButton();
+		resultsPage.tickIndefiniteRadioButtonRadioButton();
+		resultsPage.tickAvailableImmediatelyRadioButton();
+		resultsPage.tickApartmentRadioButton();
+		resultsPage.tickTwoRoomsRadioButton();
+		resultsPage.tickFloorArea50sqm_RadioButton();
+		resultsPage.tickNewConstructionRadioButton();
+		resultsPage.tickAvailableRadioButton();
+		resultsPage.scrollIntoViewLocationTextbox();
+		
+		captureScreenshot(driver, "006-ForRentSearchResults-Filtered");
+		
+		
+		
 	}
 
 }

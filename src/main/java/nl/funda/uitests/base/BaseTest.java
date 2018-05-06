@@ -43,7 +43,7 @@ public class BaseTest extends BrowserFactory {
 		// Add credentials
 		logInPage.addUserAndPassword("florin.machedon@gmail.com", "WFQU6a0j1QewqM9Aworh%!%6");
 
-		captureScreenshot(driver, "LoginScreen");
+		captureScreenshot(driver, "001-LoginScreen");
 
 		// Click login button and wait for next page to load
 		logInPage = logInPage.clickLogInButton();
@@ -65,12 +65,12 @@ public class BaseTest extends BrowserFactory {
 		Assert.assertTrue(checkEmail.contains(emailText), "This is not the email of the user that logged in. Expected: "
 				+ emailText + "\nActual: " + "" + checkEmail + ".");
 
-		captureScreenshot(driver, "UserSuccessfullyLoggedIn");
+		captureScreenshot(driver, "002-UserSuccessfullyLoggedIn");
 
 		userAccountPage.clickFundaLogo();
 		searchPage.waitForSearchPageToLoad();
 
-		captureScreenshot(driver, "SearchPage");
+		captureScreenshot(driver, "003-SearchHomePage");
 	}
 
 	@AfterMethod

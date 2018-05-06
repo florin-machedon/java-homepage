@@ -4,13 +4,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Sleeper;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -26,16 +23,9 @@ public class SearchPage extends BasePageObject<SearchPage> {
 	private By newlyBuiltButton = By.cssSelector(".search-block__navigation-item[href$=\"/nieuwbouw/\"]");
 	private By recreationButton = By.cssSelector(".search-block__navigation-item[href$=\"/recreatie/\"]");
 	private By europeButton = By.cssSelector(".search-block__navigation-item[href$=\"/europe/\"]");
-
 	private By filterLocationTextbox = By.cssSelector("input#autocomplete-input.autocomplete-input");
-	// private By autoCompleteFirstOption = By.cssSelector(".autocomplete-list-outer
-	// #autocomplete-list-option0");
-	// private By autoCompleteFirstOption = By.cssSelector("#autocomplete-list
-	// .is-match");
 	private By autoCompleteFirstOption = By.cssSelector("#autocomplete-list-option0 > span:nth-child(1)");
-
-	private By autoCompleteFullList = By.cssSelector("#autocomplete-list");
-
+	//	private By autoCompleteFullList = By.cssSelector("#autocomplete-list");
 	private By filterDistanceDropdownlist = By.cssSelector("#Straal[name=\"filter_Straal\"]");
 	private By fromPriceDropdownlist = By.cssSelector("#range-filter-selector-select-filter_huurprijsvan");
 	private By toPriceDropdownlist = By.cssSelector("#range-filter-selector-select-filter_huurprijstot");
@@ -119,7 +109,7 @@ public class SearchPage extends BasePageObject<SearchPage> {
 		selectByValueFromDropdown(toPrice, toPriceDropdownlist);
 
 		driver.findElement(filterLocationTextbox).sendKeys(Keys.SPACE);
-//		waitForVisibilityOf(autoCompleteFullList, 10);
+		// waitForVisibilityOf(autoCompleteFullList, 10);
 
 		try {
 			WebElement autoOptions = driver.findElement(autoCompleteFirstOption);
@@ -134,9 +124,9 @@ public class SearchPage extends BasePageObject<SearchPage> {
 				}
 			}
 		} catch (NoSuchElementException e) {
-			System.out.println(e.getStackTrace());
+			// System.out.println(e.getStackTrace());
 		} catch (Exception e) {
-			System.out.println(e.getStackTrace());
+			// System.out.println(e.getStackTrace());
 		}
 	}
 
