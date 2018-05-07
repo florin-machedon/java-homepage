@@ -26,23 +26,25 @@ public class SearchAmsterdam extends BaseTest {
 		String toPrice = testData.get("toPrice");
 
 		String resultsText = "resultaten";
+		String fiterCountNumber = "6";
 
 		SearchPage searchPage = new SearchPage(driver);
 		ResultsPage resultsPage = new ResultsPage(driver);
 
 		logger.log(LogStatus.INFO, "Started Test No #" + testNumber + " for " + description);
 
+		// Starting the script
 		searchPage.clickForRentButton();
 		searchPage.addSearchDetails(filterLocation, filterDistance, fromPrice, toPrice);
 		searchPage.clickSearchButton();
 		resultsPage.waitForResultsPageToLoad();
 
+		// Check if the search returned any results
 		String checkResults = resultsPage.getResultsText();
-		Assert.assertTrue(checkResults.contains(resultsText),
-				"This page did not returned any results: " + resultsText + "\nActual: " + "" + checkResults + ".");
+		Assert.assertTrue(checkResults.contains(resultsText), "This page did not returned any results: " + resultsText + "\nActual: " + "" + checkResults + ".");
 
 		captureScreenshot(driver, "005-ForRentSearchResults");
-		
+
 		resultsPage.tickNoRentalFeeRadioButton();
 		resultsPage.tickIndefiniteRadioButtonRadioButton();
 		resultsPage.tickAvailableImmediatelyRadioButton();
@@ -52,11 +54,15 @@ public class SearchAmsterdam extends BaseTest {
 		resultsPage.tickNewConstructionRadioButton();
 		resultsPage.tickAvailableRadioButton();
 		resultsPage.scrollIntoViewLocationTextbox();
-		
+
+		// Check if the expected filters are actually applied on the resultsPage
+		String checkFilterCount = resultsPage.getFiterCountNumber();
+		Assert.assertTrue(checkFilterCount.contains(fiterCountNumber),
+				"Expected number of filters to be applied : " + fiterCountNumber + "\nActual: " + "" + checkFilterCount + ".");
+
 		captureScreenshot(driver, "006-ForRentSearchResults-Filtered");
 		
-		
+		resultsPage.clickFundaLogo();
 		
 	}
-
 }

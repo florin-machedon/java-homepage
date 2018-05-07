@@ -16,22 +16,17 @@ public class ResultsPage extends BasePageObject<ResultsPage> {
 	private By saveSearchButton = By.cssSelector(".search-save-desktop a");
 	private By filterLocationTextbox = By.cssSelector("input#autocomplete-input.autocomplete-input");
 	// Kosten huurder
-	private By noRentalFeeRadioButton = By
-			.cssSelector(".radio-group-item-label.label-text[for=\"IndGeenBemiddelingskosten-geen\"]");
-	private By indefiniteRadioButton = By
-			.cssSelector(".radio-group-item-label.label-text[for=\"Huurovereenkomst-geen\"]");
-	private By availableImmediatelyRadioButton = By
-			.cssSelector(".radio-group-item-label.label-text[for=\"DatumAanvaarding-geen\"]");
-	private By apartmentRadioButton = By
-			.cssSelector(".radio-group-item-label.label-text[for=\"SoortObject-Appartement\"]");
+	private By noRentalFeeRadioButton = By.cssSelector(".radio-group-item-label.label-text[for=\"IndGeenBemiddelingskosten-geen\"]");
+	private By indefiniteRadioButton = By.cssSelector(".radio-group-item-label.label-text[for=\"Huurovereenkomst-geen\"]");
+	private By availableImmediatelyRadioButton = By.cssSelector(".radio-group-item-label.label-text[for=\"DatumAanvaarding-geen\"]");
+	private By apartmentRadioButton = By.cssSelector(".radio-group-item-label.label-text[for=\"SoortObject-Appartement\"]");
 	private By twoRoomsRadioButton = By.cssSelector(".radio-group-item-label.label-text[for=\"AantalKamers-2\"]");
-	private By floorArea50sqm_RadioButton = By
-			.cssSelector(".radio-group-item-label.label-text[for=\"WoonOppervlakte-50\"]");
-	private By newConstructionRadioButton = By
-			.cssSelector(".radio-group-item-label.label-text[for=\"BouwvormId-BestaandeBouw\"]");
-	private By availableRadioButton = By
-			.cssSelector(".radio-group-item-label.label-text[for=\"ObjectBeschikbaarheid-Beschikbaar\"]");
+	private By floorArea50sqm_RadioButton = By.cssSelector(".radio-group-item-label.label-text[for=\"WoonOppervlakte-50\"]");
+	private By newConstructionRadioButton = By.cssSelector(".radio-group-item-label.label-text[for=\"BouwvormId-BestaandeBouw\"]");
+	private By availableRadioButton = By.cssSelector(".radio-group-item-label.label-text[for=\"ObjectBeschikbaarheid-Beschikbaar\"]");
 
+	private By fiterCountNumber = By.cssSelector(".search-content-header .filter-reset .filter-count-number");
+	
 	public ResultsPage(WebDriver driver) {
 		super(driver);
 	}
@@ -131,11 +126,19 @@ public class ResultsPage extends BasePageObject<ResultsPage> {
 		setCheckbox(checkBoxElement, true);
 	}
 
+	// Scroll into view: 'Location textbox' for taking screenshot
 	public void scrollIntoViewLocationTextbox() {
 		waitForVisibilityOf(filterLocationTextbox, 10);
 		WebElement element = driver.findElement(filterLocationTextbox);
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView();", element);
+	}
+
+	// Checked filters are applied
+	public String getFiterCountNumber() {
+		waitForVisibilityOf(fiterCountNumber, 10);
+		logger.log(LogStatus.PASS, "Checked filters are applied");
+		return getText(fiterCountNumber);
 	}
 }

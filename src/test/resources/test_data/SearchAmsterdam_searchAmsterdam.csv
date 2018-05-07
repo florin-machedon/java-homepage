@@ -1,2 +1,3 @@
 no,description,filterLocation,filterDistance,fromPrice,toPrice
-01,Script: Search Amsterdam,Amsterdam,+ 15 km,900,1500
+01,Script: Search Amsterdam,Amsterdam,+ 15 km,800,900
+02,Script: Search Amsterdam,Amsterdam,+ 15 km,1500,1750

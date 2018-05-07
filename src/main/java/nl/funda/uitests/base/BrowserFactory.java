@@ -77,7 +77,8 @@ public class BrowserFactory {
 		try {
 			TakesScreenshot ts = (TakesScreenshot) driver;
 			File source = ts.getScreenshotAs(OutputType.FILE);
-			String dest = "./log/Screenshots/" + screenshotName + ".png";
+			String dest = "./log/Screenshots/" + driver.getClass().getSimpleName() + "-" + screenshotName + ".png";
+			//String dest = "./log/Screenshots/" + screenshotName + ".png";
 			File destination = new File(dest);
 			FileUtils.copyFile(source, destination);
 			logger.log(LogStatus.INFO, "Screenshot " + screenshotName + ".png" + " taken!!");

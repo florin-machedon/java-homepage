@@ -25,7 +25,7 @@ public class SearchPage extends BasePageObject<SearchPage> {
 	private By europeButton = By.cssSelector(".search-block__navigation-item[href$=\"/europe/\"]");
 	private By filterLocationTextbox = By.cssSelector("input#autocomplete-input.autocomplete-input");
 	private By autoCompleteFirstOption = By.cssSelector("#autocomplete-list-option0 > span:nth-child(1)");
-	//	private By autoCompleteFullList = By.cssSelector("#autocomplete-list");
+	// private By autoCompleteFullList = By.cssSelector("#autocomplete-list");
 	private By filterDistanceDropdownlist = By.cssSelector("#Straal[name=\"filter_Straal\"]");
 	private By fromPriceDropdownlist = By.cssSelector("#range-filter-selector-select-filter_huurprijsvan");
 	private By toPriceDropdownlist = By.cssSelector("#range-filter-selector-select-filter_huurprijstot");
@@ -96,6 +96,16 @@ public class SearchPage extends BasePageObject<SearchPage> {
 	public void addSearchDetails(String filterLocation, String filterDistance, String fromPrice, String toPrice) {
 		logger.log(LogStatus.INFO, "Filling up Search details");
 
+		// waitForVisibilityOf(filterLocationTextbox, 10);
+
+		// Javascript loads the element one more time after it was referred so the date reference points
+		// to an unexisting object even if the object is present on the page.
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+
 		waitForVisibilityOf(filterLocationTextbox, 10);
 		typeCSVValueInTextbox(filterLocation, filterLocationTextbox);
 
@@ -111,6 +121,8 @@ public class SearchPage extends BasePageObject<SearchPage> {
 		driver.findElement(filterLocationTextbox).sendKeys(Keys.SPACE);
 		// waitForVisibilityOf(autoCompleteFullList, 10);
 
+		// Capture element from the autocomplete Location textbox and
+		// select the value that equals what was initially sent to the location textbox
 		try {
 			WebElement autoOptions = driver.findElement(autoCompleteFirstOption);
 			wait.until(ExpectedConditions.visibilityOf(autoOptions));

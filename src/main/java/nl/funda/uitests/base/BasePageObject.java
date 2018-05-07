@@ -10,6 +10,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -157,6 +158,7 @@ public class BasePageObject<T> extends BrowserFactory {
 	 * 
 	 * @param condition
 	 * @param timeOutInSeconds
+     * @throws TimeoutException If the timeout expires.
 	 */
 	private void waitFor(ExpectedCondition<WebElement> condition, Integer timeOutInSeconds) {
 		timeOutInSeconds = timeOutInSeconds != null ? timeOutInSeconds : 30;
@@ -169,7 +171,8 @@ public class BasePageObject<T> extends BrowserFactory {
 	 * 
 	 * @param locator
 	 *            locator of the element with the select
-	 * @param timeOutInSeconds
+	 * @param timeOutInSeconds, optional. Default: 30 seconds
+     * @throws TimeoutException If the timeout expires.
 	 */
 	protected void waitForVisibilityOf(By locator, Integer... timeOutInSeconds) {
 		int attempts = 0;
